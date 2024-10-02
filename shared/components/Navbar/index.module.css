@@ -1,0 +1,17 @@
+.bullet {
+  font-size: 2rem;
+  color: white;
+  top: -2px;
+  position: relative;
+  animation: pulse 2s infinite both;
+}
+
+@keyframes pulse {
+  from,
+  to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
