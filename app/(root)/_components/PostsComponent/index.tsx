@@ -4,8 +4,8 @@ import { postService } from '@/lib/post/application/Services'
 import { axiosPostRepository } from '@/lib/post/infrastructure/Repositories/AxiosPostRepository'
 import { fetchPostRepository } from '@/lib/post/infrastructure/Repositories/FetchPostRepository'
 
-const repository = fetchPostRepository()
 // const repository = axiosPostRepository()
+const repository = fetchPostRepository()
 const service = postService(repository)
 
 async function getPosts() {

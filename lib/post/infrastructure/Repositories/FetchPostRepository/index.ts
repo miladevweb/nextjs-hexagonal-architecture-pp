@@ -21,12 +21,12 @@ async function handleResponse<T>(response: Response): Promise<T> {
 export function fetchPostRepository(): PostRepository {
   return {
     getAll: async () => {
-      const response = await fetch(url + '/posts')
+      const response = await fetch(url + '/posts', { cache: 'no-cache' })
       return handleResponse<Post[]>(response)
     },
 
     getById: async (id: string) => {
-      const response = await fetch(url + `/posts/${id}`)
+      const response = await fetch(url + `/posts/${id}`, { cache: 'no-cache' })
       return handleResponse<Post>(response)
     },
 

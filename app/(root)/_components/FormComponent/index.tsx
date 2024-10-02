@@ -11,7 +11,7 @@ import { AxiosError } from 'axios'
 import { toast } from 'sonner'
 import { fetchPostRepository } from '@/lib/post/infrastructure/Repositories/FetchPostRepository'
 
-const repository = axiosPostRepository()
+const repository = fetchPostRepository()
 const service = postService(repository)
 
 export function FormComponent() {
