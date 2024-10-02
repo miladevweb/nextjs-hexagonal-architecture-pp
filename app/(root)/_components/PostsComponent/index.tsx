@@ -1,8 +1,9 @@
+import { postService } from '@/lib/post/application/Services'
+import { fetchPostRepository } from '@/lib/post/infrastructure/Repositories/FetchPostRepository'
+
 import styles from './index.module.css'
 import { CardComponent } from './CardComponent'
-import { postService } from '@/lib/post/application/Services'
-import { axiosPostRepository } from '@/lib/post/infrastructure/Repositories/AxiosPostRepository'
-import { fetchPostRepository } from '@/lib/post/infrastructure/Repositories/FetchPostRepository'
+import ClientComponent from './ClientComponent'
 
 // const repository = axiosPostRepository()
 const repository = fetchPostRepository()
@@ -31,13 +32,15 @@ export async function PostsComponent() {
     <div className={`${styles.container} overflow-auto`}>
       {posts.length ? (
         <div className="grid gap-x-9 gap-y-5 pt-0 p-5 xl:pt-5 md:grid-cols-2">
-          {posts.map(({ title, description, id }) => (
+          {posts.map(({ title, description }, i) => (
             <CardComponent
-              key={id}
+              key={i}
               title={title}
               description={description ?? ''}
             />
           ))}
+
+          <ClientComponent />
         </div>
       ) : (
         <div className="fallback">Create your first post right now!!!</div>

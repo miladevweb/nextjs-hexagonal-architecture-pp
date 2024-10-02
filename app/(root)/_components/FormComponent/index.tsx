@@ -4,17 +4,20 @@ import { Form } from '@/shadcn/components/ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/shadcn/components/ui/button'
 import { postService } from '@/lib/post/application/Services'
-import { axiosPostRepository } from '@/lib/post/infrastructure/Repositories/AxiosPostRepository'
 import { createPostSchema, CreatePostSchema } from '@/lib/post/infrastructure/Schemas/PostSchema'
 import { FormFieldComponent } from '@/shared/components/FormField'
 import { AxiosError } from 'axios'
 import { toast } from 'sonner'
 import { fetchPostRepository } from '@/lib/post/infrastructure/Repositories/FetchPostRepository'
+import { usePosts } from '@/shared/context/posts-context'
 
+// const repository = axiosPostRepository()
 const repository = fetchPostRepository()
 const service = postService(repository)
 
 export function FormComponent() {
+  const { setPosts } = usePosts()
+
   const form = useForm<CreatePostSchema>({
     resolver: zodResolver(createPostSchema),
 
@@ -27,7 +30,10 @@ export function FormComponent() {
     const submitPromise = service.create(title, description ?? '')
 
     toast.promise(submitPromise, {
-      success: 'Post created successfully',
+      success: () => {
+        setPosts((prev) => [...prev, { title, description }])
+        return 'Post created successfully'
+      },
 
       loading: 'Creating post...',
 
